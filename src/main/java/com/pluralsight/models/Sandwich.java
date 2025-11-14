@@ -5,7 +5,8 @@ import com.pluralsight.ui.UserInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sandwich implements UserInterface {
+public class Sandwich implements MenuItem {
+
 
     private List<Topping> toppings;
     private  String bread;
@@ -15,14 +16,19 @@ public class Sandwich implements UserInterface {
     private boolean extraMeat;
     private boolean extraCheese;
 
-    public Sandwich(String bread, String size, double price, boolean isToasted, boolean extraMeat, boolean extra) {
+    public void addTopping(Topping topping) {
+        toppings.add(topping);
+    }
+
+
+    public Sandwich(String bread, String size, boolean isToasted) {
         this.bread = bread;
         this.size = size;
-        this.price = price;
+        //this.price = price; double price /after size
         this.isToasted = isToasted;
         this.extraMeat = extraMeat;
         this.extraCheese = extraCheese;
-        this.toppings = toppings;
+        this.toppings = new ArrayList<>();
     }
 
 
@@ -80,42 +86,43 @@ public class Sandwich implements UserInterface {
         double price = 0;
 
         //base price
-        if (size.equals("4")) price += 5.50;
-        else if (size.equals("8")) price += 7.00;
-        else if (size.equals("12")) price += 8.50;
+        switch (size) {
+            case "4" -> price += 5.50;
+            case "8" -> price += 7.00;
+            case "12" -> price += 8.50;
+        }
 
-        //loop for toppings
+        // TOPPING COSTS
         for (Topping topping : toppings) {
+
             String type = topping.getType();
-        }
 
+            // MEAT
+            if (type.equals("meat")) {
+                if (size.equals("4")) price += 1.00;
+                else if (size.equals("8")) price += 2.00;
+                else price += 3.00;
 
-        //meat
-        if (type.equals("meat")) {
-            if (size.equals("4")) price += 1.00;
-            else if (size.equals("8")) price += 2.00;
-            else price += 3.00;
-        }
+                if (topping.isExtra()) {
+                    if (size.equals("4")) price += 0.50;
+                    else if (size.equals("8")) price += 1.00;
+                    else price += 1.50;
+                }
+            }
 
-        //cheese
-        else if (type.equals("cheese")) {
-            if (size.equals("4")) price += 0.75;
-            else if (size.equals("8")) price += 1.50;
-            else price += 2.25
-        }
+            // CHEESE
+            else if (type.equals("cheese")) {
+                if (size.equals("4")) price += 0.75;
+                else if (size.equals("8")) price += 1.50;
+                else price += 2.25;
 
-        //extra meat
-        if (extraMeat) {
-            if (size.equals("4")) price += 0.50;
-            else if (size.equals("8")) price += 1.00;
-            else price += 1.50;
-        }
+                if (topping.isExtra()) {
+                    if (size.equals("4")) price += 0.30;
+                    else if (size.equals("8")) price += 0.60;
+                    else price += 0.90;
+                }
+            }
 
-        //extra cheese
-        if (extraCheese) {
-            if (size.equals("4")) price += 0.30;
-            else if (size.equals("8")) price += 0.60;
-            else price += 0.90;
         }
 
         return price;

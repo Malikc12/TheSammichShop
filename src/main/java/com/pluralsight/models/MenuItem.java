@@ -1,6 +1,6 @@
 package com.pluralsight.models;
 
-public abstract class MenuItem {
+public interface MenuItem {
 
-    public abstract double getPrice();
+     double getPrice();
 }

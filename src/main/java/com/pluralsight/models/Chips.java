@@ -1,6 +1,6 @@
 package com.pluralsight.models;
 
-public class Chips extends MenuItem {
+public class Chips implements MenuItem {
 
     private String bagOfChips;
 
@@ -19,5 +19,11 @@ public class Chips extends MenuItem {
     @Override
     public double getPrice() {
         return 1.5;
+    }
+
+    public String toString() {
+        return bagOfChips.substring(0, 1).toUpperCase() + bagOfChips.substring(1)
+
+                + " - $1.50";
     }
 }

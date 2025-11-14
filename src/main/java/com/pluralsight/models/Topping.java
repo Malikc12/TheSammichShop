@@ -2,9 +2,10 @@ package com.pluralsight.models;
 
 public class Topping {
 
-    private String name;
-    private String type;
+    private final String name;
+    private final String type;
     private boolean isExtra;
+
 
     public Topping(String name, String type, boolean isExtra) {
         this.name = name.toLowerCase();
@@ -13,8 +14,8 @@ public class Topping {
     }
 
     public Topping(String name, String type) {
-        this.name = name;
-        this.type = type;
+        this.name = name.toLowerCase();
+        this.type = type.toLowerCase();
     }
 
     public String getName() {

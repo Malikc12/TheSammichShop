@@ -1,6 +1,6 @@
 package com.pluralsight.models;
 
-public class Drink extends MenuItem {
+public class Drink implements MenuItem {
 
     private String size;
     private String flavor;
@@ -33,6 +33,12 @@ public class Drink extends MenuItem {
             case  "small" -> 2.0;
             case  "medium" -> 2.5;
             case "large" -> 3.0;
-        }
+            default -> 0;
+        };
+    }
+
+    public String toString() {
+        return size.substring(0,1).toUpperCase() + size.substring(1)
+                + " " + flavor + " - $" + String.format("%.2f", getPrice());
     }
 }
